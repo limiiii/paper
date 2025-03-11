@@ -330,7 +330,17 @@ $d)$为添加了局部路径规划方法所执行的正确导航，全局路径�
 
 \subsection{导航实验}
 为了验证本文所提出方法在复杂多变真实环境中依照指令进行导航的能力，我们给定只在方位和目标上存在细微差距的五目标导航指令进行实验，如图\ref{realenvsuccess}和\ref{realenvfalied}所示。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Fig/realsuccess.png}
+    \caption{\label{realenvsuccess}真实环境成功导航示例}
+\end{figure}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Fig/realfalied.png}
+    \caption{\label{realenvfalied}真实环境失败导航示例}
+\end{figure}
 
 前者是一次真实环境成功导航示例，学院楼实验室的门口出发，根据全局路径规划获得的目标导航点之后，在ROS中发布目标位姿依次进行目标物体导航，在直行经过储物柜之后移动机器人根据匹配的目标点继续导航到前方的冰箱旁，然后右转依次经过书架和风扇这两个导航点，接着得益于全局路径规划中的方位优化和多模态融合网络，在最后目标椅子的导航点选择中代理不会错误地选择在环境中离自己最近的风扇旁的其他椅子，而是前往指令要求的前方最近的椅子，从而正确匹配离工作台椅子旁最近的导航点，最后根据局部路径规划中的特征提取融合和运动模块在视觉观察中进行探索，检测到最终目标后通过图像点云融合模块获得环境中椅子的真实位姿，发布位姿后执行以顺利完成导航任务。
 

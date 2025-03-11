@@ -1,11 +1,11 @@
-\documentclass[unicode,master]{scutthesis} % 草稿封面，硕士则添加选项master，博士则去掉。使用正式封面时注释该行
-% \documentclass[unicode,master,pdfcover]{scutthesis} %   % 论文正式封面，pdfcover为可选项，终稿再添加，使用草稿封面时注释该行
+% \documentclass[unicode,master]{scutthesis} % 草稿封面，硕士则添加选项master，博士则去掉。使用正式封面时注释该行
+\documentclass[unicode,master,pdfcover]{scutthesis} %   % 论文正式封面，pdfcover为可选项，终稿再添加，使用草稿封面时注释该行
 \usepackage{array,longtable,graphicx} 
 \usepackage{anyfontsize} %消除字体警告
 \usepackage{enumitem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%——by MCH
 %编译范围
-%\includeonly{chapter/chapter02}
+% \includeonly{chapter/ack}
 %参考文献设置
 
 \usepackage[backend=biber,style=gb7714-2015,gbalign=gb7714-2015,gbpub=false,gbnamefmt = lowercase]{biblatex}% 可试着设style=gb7714-1987
@@ -82,8 +82,8 @@
 	\endgroup
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\include{chapter/symbols}	% 符号对照表(可选)
-	\include{chapter/abbreviation} 	% 缩略词	
+	%\include{chapter/symbols}	% 符号对照表(可选)
+	%\include{chapter/abbreviation} 	% 缩略词	
 	
 	\mainmatter %此后为阿拉伯数字页码
 	

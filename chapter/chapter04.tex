@@ -73,7 +73,7 @@ Fukushima\cite{fukushima2022object}等人提出基于对象记忆Transfomer的�
 局部特征的提取流程如图\ref{局部特征提取}所示。在一开始我们使用预训练的DETR网络来提取第一人称视觉RGB图像，用于表征当前视觉观察的局部信息、帮助代理认知视觉观察图像中物体代表的语义信息和位置信息，得到$100 \times 256$的局部特征，其中我们的DETR网络使用ResNet-50作为主干网络，采用六层编码器、六层解码器、八个独立注意力头和维度为2048的前馈神经网络搭建而成。然后将该特征经过全连接层Linear和ReLU激活函数以得到$100 \times 249$的局部特征，再将表征推理结果的$100 \times 7$关联特征与局部特征进行连接，得到包含环境所存在的物体语义信息、位置信息、置信度在内的$100 \times 256$的局部特征。
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.10]{Fig/局部特征提取.png}
+    \includegraphics[scale=0.09]{Fig/局部特征提取.png}
     \caption{\label{局部特征提取}局部特征提取流程}
 \end{figure}
 
@@ -83,7 +83,7 @@ Fukushima\cite{fukushima2022object}等人提出基于对象记忆Transfomer的�
  \kern-\nulldelimiterspace} {{d_{{\rm{model}}}}}}}}$表示用于确保不同维度的编码值在不同的频率范围内变化的缩放因子。
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.10]{Fig/全局特征提取.png}
+    \includegraphics[scale=0.09]{Fig/全局特征提取.png}
     \caption{\label{全局特征提取}全局特征提取流程}
 \end{figure}
 
@@ -160,7 +160,7 @@ Fukushima\cite{fukushima2022object}等人提出基于对象记忆Transfomer的�
 特征融合的解码器decoder结构如图\ref{decoder}所示。我们将特征提取模块输出表征代理所处环境的$49 \times 256$维全局特征、表征当前导航目标的$1 \times 256$维目标特征和可学习的$1 \times 256$维目标特征进行连结，得到$51 \times 256$维的特征输入到decoder之中，在经过第一个多头自注意力层、残差连接、层归一化之后，将Transfomer encoder输出的$100 \times 256$维强化后的局部特征作为键值对、$51 \times 256$维的特征作为查询一同输入到第二个多头自注意力层之中，经过残差连接归一化层、前馈神经网络和最后一次的残差连接和层归一化后，得到$51 \times 256$维的特征，使用该特征中与$1 \times 256$维的目标特征和$1 \times 256$维的可学习的参数特征相对应位置的向量，作为表征环境中与目标相关联物体的信息，以帮助代理确定导航方向的方向特征，还有表征全局特征和局部特征共同联合的环境特征。
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.10]{Fig/decoder.png}
+    \includegraphics[scale=0.08]{Fig/decoder.png}
     \caption{\label{decoder}decoder结构图}
 \end{figure}
 
