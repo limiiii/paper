@@ -84,11 +84,22 @@
     \end{tabular}
 \end{table}
 
+仿真差速驱动机器人的建模如图\ref{sim_robot}所示，
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.40]{Fig/sim_robot.png}
+    \caption{\label{sim_robot}仿真机器人模型}
+\end{figure}机器人的底盘由半径为10厘米的圆柱状机身、两个宽度为1.5厘米的驱动论和两个球状万向轮搭建而成，底盘上搭载了一个水平扫描范围为360度、垂直扫描范围30度的十六线激光雷达和单目相机，移动机器人的机身长度为50厘米，宽度为23厘米。
+本文在三维动态模拟器Gazebo中进行仿真实验，仿真环境和环境中的点云可视化示例如图\ref{sim_world}所示，为了保证后续不同方法能够进行公平的比较，我们统一使用多线激光SLAM算法扫描各个环境进行全局地图的创建，并且在不同方法的实验过程中均不改变移动机器人上所有设备、ROS导航算法的参数。
 
 
 
 
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Fig/sim_world.png}
+    \caption{\label{sim_world}仿真环境与可视化点云}
+\end{figure}
 
 
 \subsection{评价指标}
