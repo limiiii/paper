@@ -101,9 +101,10 @@
 	\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 	\include{chapter/conclusion} %结论
 
-	% \phantomsection % “目录”中的链接能正确跳转，需要添加 \phantomsection 否则点击参考文献会跳转到结论
-	% \addcontentsline{toc}{chapter}{参考文献}	%目录中添加参考文献
-	% \printbibliography	% 参考文献著录
-	% \include{chapter/pub} %成果
+% 盲审版本则注释下面部分
+	\phantomsection % “目录”中的链接能正确跳转
+	\addcontentsline{toc}{chapter}{参考文献}	%目录中添加参考文献
+	\printbibliography	% 参考文献著录
+	\include{chapter/pub} %成果
 	% \include{chapter/ack} %致谢
 \end{document}
