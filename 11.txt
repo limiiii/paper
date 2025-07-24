@@ -1,0 +1,176 @@
+  随着机器人需求市场的不断扩大，机器人逐渐从实验室跻身到酒店服务、工厂物流、家政服务、医疗看护、教育娱乐等各行各业之中，为推动生产力的持续发展做出了巨大贡献。在众多的应用场景之中移动机器人主要以室内环境作为其主要的工作场景，以自主导航作为其完成其他复杂任务的基础功能。目前大部分广泛应用于室内服务的移动机器人都采用点云激光进行建图与实时定位来实现自主导航，然而这种方法无法利用图像丰富的特征信息进行导航，容易在平坦、多重复场景这类特征不明显的环境中定位失败，已成为亟待解决的难题。针对在移动机器人室内导航过程中，单一使用视觉语言导航算法无法充分利用语义中的方位和环境中的感知信息、无法导航至目标半米内的问题，本文提出了一种语言视觉激光多模态融合的机器人导航方法。首先，在全局路径规划中，标记地图中的导航点，保留其位姿、图像、点云图和各点之间的拓扑信息，通过多模态融合网络得到各导航点与目标的匹配权值，结合dijkstra算法和方位优化算法，规划出全局路径导航点序列。然后在局部路径规划中，通过特征提取、特征融合和运动模块在局部未知环境中探索目标，将多线激光与单目相机进行联合标定，进一步通过目标检测、点云聚类和坐标变换方法得到目标具体位姿，发布导航任务以完成局部路径的规划。最后，通过仿真实验和真实环境实验，验证所提出的导航方法的有效性和可行性。本文的主要贡献如下：
+  （1）本文提出了一种全局路径规划导航方法。与前人的工作相比，针对静态目标导航任务所提出的全局路径规划导航方法基于单目相机、激光雷达等多种传感器和基于多模态特征融合神经网络，增强系统对当前环境和导航过程中的认知和感知能力，再通过方位优化算法筛除噪声导航点，提高导航点选择的正确率的同时提高后续规划的计算响应速度，最后通过导航点规划算法加权融合多种策略进一步提高导航的准确率和导航效率。
+  （2）本文提出了一种未知环境的目标物体探索方法。与前人的工作相比，针对动态目标导航任务所提出的局部目标物体探索方法基于多特征提取和融合的方法，在同一嵌入空间内利用注意力机制融合视觉特征和文本特征，有效的构建了视觉表示和目标物体所在导航方向的关联，使系统能够通过探索找到在变化的环境中的目标物体。
+  （3）本文设计了一套单目相机和多线激光融合的图像点云融合方法，联合视觉观察的认知信息和多线点云的感知信息让移动机器人能够有效地在仿真环境和真实环境中依据自然语言指令完成目标导航任务，在仿真环境和真实机器人上部署并完成一系列可行性与性能测试，实验结果表明该方法具有一定的有效性和优越性。
+
+
+
+  With the continuous expansion of the robot demand market, robots gradually from the laboratory to hotel services, factory logistics, domestic service, medical care, education and entertainment and other industries, to promote the sustainable development of productivity has made great contributions. In many application scenarios, the mobile robot mainly takes indoor environment as its main working scene, and autonomous navigation as its basic function to complete other complex tasks. At present, most of the mobile robots widely used in indoor services use point cloud laser for mapping and real-time positioning to achieve autonomous navigation. However, this method cannot make use of the rich feature information of images for navigation, and it is easy to fail to locate in the environment with unclear features such as flat and multiple repeated scenes, which has become an urgent problem to be solved. In order to solve the problem that the single visual language navigation algorithm can not make full use of the semantic orientation and the perceptual information in the environment, and can not navigate to the target within half a meter in the indoor navigation process of mobile robots, this paper proposes a multi-modal fusion robot navigation method based on language vision laser. First of all, in global path planning, navigation points in the map are marked, their pose, image, point cloud image and topological information between points are retained, and the matching weights of each navigation point and the target are obtained through multi-modal fusion network. Combining dijkstra algorithm and orientation optimization algorithm, the global path navigation point sequence is planned. Then, in local path planning, the target is explored in the local unknown environment through feature extraction, feature fusion and motion module, the multi-line laser and monocular camera are jointly calibrated, and the specific pose of the target is obtained through target detection, point cloud clustering and coordinate transformation methods, and the navigation task is released to complete the local path planning. Finally, the effectiveness and feasibility of the proposed navigation method are verified by simulation experiments and real environment experiments. The main contributions of this paper are as follows:
+  （1）This paper presents a global path planning navigation method. Compared with previous work, the proposed global path planning navigation method for static target navigation tasks is based on a variety of sensors such as monocular camera and Lidar and a multi-modal feature fusion neural network to enhance the system's cognition and perception of the current environment and navigation process, and then filters out the noise navigation points through the orientation optimization algorithm. The accuracy rate of navigation point selection is improved, and the computational response speed of subsequent planning is improved. Finally, the navigation accuracy and efficiency are further improved through the weighted integration of navigation point planning algorithms.
+  （2）This paper proposes an exploration method for target objects in an unknown environment. Compared with previous works, the local target object exploration method proposed for the dynamic target navigation task is based on the method of multi-feature extraction and fusion. Within the same embedding space, the attention mechanism is utilized to fuse visual features and text features, effectively constructing the association between the visual representation and the navigation direction where the target object is located. Enable the system to find the target objects in the changing environment through exploration.
+  （3）In this paper, a set of image point cloud fusion method based on monocular camera and multi-line laser fusion is designed. By combining cognitive information of visual observation and perception information of multi-line point cloud, the mobile robot can effectively complete target navigation tasks according to natural language instructions in simulation environment and real environment, and a series of feasibility and performance tests are deployed and completed on simulation environment and real robot. The experimental results show that this method has certain effectiveness and superiority.
+
+
+
+
+[1] 中华人民共和国. 政府工作报告[EB/OL]. 2025. https://www.gov.cn/yaowen/liebiao/202503/content_7010586.htm.
+[2] Zhang T, Hu X, Xiao J, et al. A survey of visual navigation: From geometry to embodied AI[J]. Engineering Applications of Artificial Intelligence, 2022, 114: 105036.
+[3] Majumdar A, Aggarwal G, Devnani B, et al. Zson: Zero­shot object­goal navigation us ing multimodal goal embeddings[J]. Advances in Neural Information Processing Systems,2022, 35: 32340­32352.
+[4] Sun J, Wu J, Ji Z, et al. A survey of object goal navigation[J]. IEEE Transactions on Au tomation Science and Engineering, 2024.
+[5] Mavrogiannis C, Baldini F, Wang A, et al. Core challenges of social robot navigation: Asurvey[J]. ACM Transactions on Human­Robot Interaction, 2023, 12(3): 1­39.
+[6] Li S E. Reinforcement learning for sequential decision and optimal control[J]., 2023.
+[7] Reddy K, Gharde P, Tayade H, et al. Advancements in robotic surgery: a comprehensive overview of current utilizations and upcoming frontiers[J]. Cureus, 2023, 15(12).
+[8] Zhang J, Singh S, et al. LOAM: Lidar odometry and mapping in real­time.[C]//Robotics:Science and systems: vol. 2: 9. 2014: 1­-9.
+[9] Kazerouni I A, Fitzgerald L, Dooly G, et al. A survey of state­of­the­art on visual SLAM[J]. Expert Systems with Applications, 2022, 205: 117734.
+[10] Stanford Artificial Intelligence Laboratory et al. Robotic Operating System[EB/OL].(2018­05­23). https://www.ros.org/.
+[11] Dellaert F, Fox D, Burgard W, et al. Monte carlo localization for mobile robots[C]//Proceedings 1999 IEEE international conference on robotics and automation (Cat. No.99CH36288C): vol. 2. 1999: 1322­-1328.
+[12] Thrun S, Fox D, Burgard W, et al. Robust Monte Carlo localization for mobile robots[J].Artificial intelligence, 2001, 128(1­2): 99­141.
+[13] Hart P E, Nilsson N J, Raphael B. A formal basis for the heuristic determination of min imum cost paths[J]. IEEE transactions on Systems Science and Cybernetics, 1968, 4(2):100­-107.
+[14] Rösmann C, Feiten W, Wösch T, et al. Efficient trajectory optimization using a sparse
+model[C]//2013 European Conference on Mobile Robots. 2013: 138­143.
+[15] Murphy K, Russell S. Rao­Blackwellised particle filtering for dynamic Bayesian net works[G]//Sequential Monte Carlo methods in practice. Springer, 2001: 499­515.
+[16] Grisetti G, Stachniss C, Burgard W. Improving grid­based slam with rao­blackwellized
+particle filters by adaptive proposals and selective resampling[C]//Proceedings of the
+2005 IEEE international conference on robotics and automation. 2005: 2432­2437.
+[17] Grisetti G, Stachniss C, Burgard W. Improved techniques for grid mapping with rao blackwellized particle filters[J]. IEEE transactions on Robotics, 2007, 23(1): 34­46.
+[18] Hess W, Kohler D, Rapp H, et al. Real­time loop closure in 2D LIDAR SLAM[C]//2016
+IEEE international conference on robotics and automation (ICRA). 2016: 1271­1278.
+[19] Engel J, Schöps T, Cremers D. LSD­SLAM: Large­scale direct monocular SLAM[C]//
+European conference on computer vision. 2014: 834­849.
+[20] Zhang J, Singh S. Low­drift and real­time lidar odometry and mapping[J]. Autonomous
+robots, 2017, 41: 401­416.
+[21] Shan T, Englot B. Lego­loam: Lightweight and ground­optimized lidar odometry and
+mapping on variable terrain[C]//2018 IEEE/RSJ International Conference on Intelligent
+Robots and Systems (IROS). 2018: 4758­4765.
+[22] Li Q, Chen S, Wang C, et al. Lo­net: Deep real­time lidar odometry[C]//Proceedings
+of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019: 8473­
+8482.
+[23] 孙海, 任翠平, 卢军, 等. 激光测距在仓储搬运机器人运动中的应用[J]. 电子技术与
+软件工程, 2017(1): 103­104.
+[24] Davison A J, Reid I D, Molton N D, et al. MonoSLAM: Real­time single camera
+SLAM[J]. IEEE transactions on pattern analysis and machine intelligence, 2007, 29(6):
+1052­1067.
+[25] Davison A J. Real­Time Localisation and Mapping with a Single Camera[J]. 情報処理
+学会研究報告 = IPSJ SIG technical reports, 2003, 2003(2): 107­114.
+82
+参考文献
+[26] Klein G, Murray D. Parallel tracking and mapping for small AR workspaces[C]//2007
+6th IEEE and ACM international symposium on mixed and augmented reality. 2007:
+225­234.
+[27] Mur­Artal R, Montiel J M M, Tardos J D. ORB­SLAM: a versatile and accurate monoc ular SLAM system[J]. IEEE transactions on robotics, 2015, 31(5): 1147­1163.
+[28] Newcombe R A, Lovegrove S J, Davison A J. DTAM: Dense tracking and mapping in
+real­time[C]//2011 international conference on computer vision. 2011: 2320­2327.
+[29] Forster C, Pizzoli M, Scaramuzza D. SVO: Fast semi­direct monocular visual odome try[C]//2014 IEEE international conference on robotics and automation (ICRA). 2014:
+15­22.
+[30] Wen C, Huang Y, Huang H, et al. Zero­shot object navigation with vision­language mod els reasoning[C]//International Conference on Pattern Recognition. 2025: 389­404.
+[31] Unlu H U, Yuan S, Wen C, et al. Reliable semantic understanding for real world zero shot object goal navigation[C]//International Conference on Pattern Recognition. 2025:
+135­150.
+[32] Gutiérrez­Álvarez C, Rıos­Navarro P, Flor­Rodrıguez­Rabadán R, et al. Visual semantic
+navigation with real robots[J]. Applied Intelligence, 2025, 55(2): 206.
+[33] Yuan S, Unlu H U, Huang H, et al. Exploring the reliability of foundation model­based
+frontier selection in zero­shot object goal navigation[C]//International Conference on
+Pattern Recognition. 2025: 119­134.
+[34] Jones J, Mees O, Sferrazza C, et al. Beyond sight: Finetuning generalist robot
+policies with heterogeneous sensors via language grounding[J]. ArXiv preprint
+arXiv:2501.04693, 2025.
+[35] Long Y, Li X, Cai W, et al. Discuss before moving: Visual language navigation via multi expert discussions[C]//2024 IEEE International Conference on Robotics and Automa tion (ICRA). 2024: 17380­17387.
+[36] Zhou G, Hong Y, Wu Q. Navgpt: Explicit reasoning in vision­and­language navigation
+with large language models[C]//Proceedings of the AAAI Conference on Artificial In telligence: vol. 38: 7. 2024: 7641­7649.
+83
+华南理工大学硕士学位论文
+[37] Zhou G, Hong Y, Wang Z, et al. Navgpt­2: Unleashing navigational reasoning capability
+for large vision­language models[C]//European Conference on Computer Vision. 2024:
+260­278.
+[38] Liu S, Hasan A, Hong K, et al. DRAGON: A dialogue­based robot for assistive navigation
+with visual language grounding[J]. IEEE Robotics and Automation Letters, 2024.
+[39] Yokoyama N, Ha S, Batra D, et al. Vlfm: Vision­language frontier maps for zero­shot
+semantic navigation[C]//2024 IEEE International Conference on Robotics and Automa tion (ICRA). 2024: 42­48.
+[40] An D, Wang H, Wang W, et al. Etpnav: Evolving topological planning for vision­language
+navigation in continuous environments[J]. IEEE Transactions on Pattern Analysis and
+Machine Intelligence, 2024.
+[41] Guo Y, Xie Y, Chen Y, et al. An Efficient Object Navigation Strategy for Mobile Robots
+Based on Semantic Information[J/OL]. Electronics, 2022, 11(7). https://www.mdpi.co
+m/2079­9292/11/7/1136. DOI: 10.3390/electronics11071136.
+[42] Shah D, Eysenbach B, Kahn G, et al. Ving: Learning open­world navigation with visual
+goals[C]//2021 IEEE International Conference on Robotics and Automation (ICRA).
+2021: 13215­13222.
+[43] Shah D, Osiński B, Levine S, et al. Lm­nav: Robotic navigation with large pre­trained
+models of language, vision, and action[C]//Conference on robot learning. 2023: 492­
+504.
+[44] Gupta A, Savarese S, Ganguli S, et al. Embodied intelligence via learning and evolu tion[J]. Nature communications, 2021, 12(1): 5721.
+[45] Cao H, Feng F, Huo J, et al. Causal action empowerment for efficient reinforcement
+learning in embodied agents[J]. Science China Information Sciences, 2025, 68(5): 5­19.
+[46] Fan H, Liu X, Fuh J Y H, et al. Embodied intelligence in manufacturing: leveraging large
+language models for autonomous industrial robotics[J]. Journal of Intelligent Manufac turing, 2025, 36(2): 1141­1157.
+[47] Wen Y, Lin J, Zhu Y, et al. Vidman: Exploiting implicit dynamics from video diffusion
+model for effective robot manipulation[J]. Advances in Neural Information Processing
+Systems, 2024, 37: 41051­41075.
+84
+参考文献
+[48] Lin X, Lin T, Huang L, et al. BIP3D: Bridging 2D Images and 3D Perception for Em bodied Intelligence[J]. ArXiv preprint arXiv:2411.14869, 2024.
+[49] Zhang Z. A flexible new technique for camera calibration[J]. IEEE Transactions on pat tern analysis and machine intelligence, 2002, 22(11): 1330­1334.
+[50] Moré J J. The Levenberg­Marquardt algorithm: implementation and theory in numerical
+analysis[J]. Lecture notes in mathematics, 1977, 630: 105­116.
+[51] Viola P, Jones M. Rapid object detection using a boosted cascade of simple features[C]//
+Proceedings of the 2001 IEEE computer society conference on computer vision and pat tern recognition. CVPR 2001: vol. 1. 2001: I­I.
+[52] Taye M M. Theoretical understanding of convolutional neural network: Concepts, archi tectures, applications, future directions[J]. Computation, 2023, 11(3): 52.
+[53] Redmon J, Divvala S, Girshick R, et al. You only look once: Unified, real­time object de tection[C]//Proceedings of the IEEE conference on computer vision and pattern recog nition. 2016: 779­788.
+[54] Liu W, Anguelov D, Erhan D, et al. Ssd: Single shot multibox detector[C]//Computer
+Vision–ECCV 2016: 14th European Conference, Amsterdam, The Netherlands, October
+11–14, 2016, Proceedings, Part I 14. 2016: 21­37.
+[55] Girshick R, Donahue J, Darrell T, et al. Rich feature hierarchies for accurate object detec tion and semantic segmentation[C]//Proceedings of the IEEE conference on computer
+vision and pattern recognition. 2014: 580­587.
+[56] Girshick R. Fast r­cnn[C]//Proceedings of the IEEE international conference on com puter vision. 2015: 1440­1448.
+[57] Ren S, He K, Girshick R, et al. Faster R­CNN: Towards real­time object detection with
+region proposal networks[J]. IEEE transactions on pattern analysis and machine intelli gence, 2016, 39(6): 1137­1149.
+[58] Doukas C, Maglogiannis I. Region of interest coding techniques for medical image com pression[J]. IEEE Engineering in medicine and Biology Magazine, 2007, 26(5): 29­35.
+[59] Carion N, Massa F, Synnaeve G, et al. End­to­end object detection with transform ers[C]//European conference on computer vision. 2020: 213­229.
+85
+华南理工大学硕士学位论文
+[60] Wang A, Chen H, Liu L, et al. Yolov10: Real­time end­to­end object detection[J]. Ad vances in Neural Information Processing Systems, 2025, 37: 107984­108011.
+[61] Varghese R, Sambath M. Yolov8: A novel object detection algorithm with enhanced per formance and robustness[C]//2024 International Conference on Advances in Data En gineering and Intelligent Computing Systems (ADICS). 2024: 1­6.
+[62] Niu Z, Zhong G, Yu H. A review on the attention mechanism of deep learning[J]. Neuro computing, 2021, 452: 48­62.
+[63] Liu H, Song R, Zhang X, et al. Point cloud segmentation based on Euclidean cluster ing and multi­plane extraction in rugged field[J]. Measurement Science and Technology,
+2021, 32(9): 095106.
+[64] Guo Z, Liu H, Shi H, et al. KD­tree­based euclidean clustering for tomographic SAR
+point cloud extraction and segmentation[J]. IEEE Geoscience and Remote Sensing Let ters, 2023, 20: 1­5.
+[65] Ke L, Li X, Bisk Y, et al. Tactical rewind: Self­correction via backtracking in vision­and language navigation[C]//Proceedings of the IEEE/CVF conference on computer vision
+and pattern recognition. 2019: 6741­6749.
+[66] Hong Y, Rodriguez C, Qi Y, et al. Language and visual entity relationship graph for
+agent navigation[J]. Advances in Neural Information Processing Systems, 2020, 33:
+7685­7696.
+[67] Wang H, Wang W, Liang W, et al. Structured scene memory for vision­language navi gation[C]//Proceedings of the IEEE/CVF conference on Computer Vision and Pattern
+Recognition. 2021: 8455­8464.
+[68] Huang C, Mees O, Zeng A, et al. Visual language maps for robot navigation[C]//
+2023 IEEE International Conference on Robotics and Automation (ICRA). 2023: 10608­
+10615.
+[69] 王湉, 范峻铭, 郑湃. 基于大语言模型的人机交互移动检测机器人导航方法[J]. 计算
+机集成制造系统, 2024, 30(5): 1587­1594.
+[70] Anderson P, Wu Q, Teney D, et al. Vision­and­language navigation: Interpreting visually grounded navigation instructions in real environments[C]//Proceedings of the IEEE con ference on computer vision and pattern recognition. 2018: 3674­3683.
+86
+参考文献
+[71] Guo D, Yang D, Zhang H, et al. Deepseek­r1: Incentivizing reasoning capability in llms
+via reinforcement learning[J]. ArXiv preprint arXiv:2501.12948, 2025.
+[72] Radford A, Kim J W, Hallacy C, et al. Learning transferable visual models from natural language supervision[C]//International conference on machine learning. 2021: 8748­
+8763.
+[73] Li W, Saeedi S, McCormac J, et al. Interiornet: Mega­scale multi­sensor photo­realistic
+indoor scenes dataset[J]. ArXiv preprint arXiv:1809.00716, 2018.
+[74] Krantz J, Wijmans E, Majumdar A, et al. Beyond the nav­graph: Vision­and­language
+navigation in continuous environments[C]//Computer Vision–ECCV 2020: 16th European Conference, Glasgow, UK, August 23–28, 2020, Proceedings, Part XXVIII 16.
+2020: 104­120.
+[75] Du H, Yu X, Zheng L. Learning object relation graph and tentative policy for visual navigation[C]//Computer Vision–ECCV 2020: 16th European Conference, Glasgow, UK,
+August 23–28, 2020, Proceedings, Part VII 16. 2020: 19­34.
+[76] Du H, Yu X, Zheng L. Vtnet: Visual transformer network for object goal navigation[J].
+ArXiv preprint arXiv:2105.09447, 2021.
+[77] Wang T, Wu Z, Wang D. Visual perception generalization for vision­and­language navigation via meta­learning[J]. IEEE Transactions on Neural Networks and Learning Systems, 2021, 34(8): 5193­5199.
+[78] Fang Q, Xu X, Wang X, et al. Target­driven visual navigation in indoor scenes using reinforcement learning and imitation learning[J]. CAAI Transactions on Intelligence Technology, 2022, 7(2): 167­176.
+[79] Fukushima R, Ota K, Kanezaki A, et al. Object memory transformer for object goal navigation[C]//2022 International conference on robotics and automation (ICRA). 2022:
+11288­11294.
+[80] 朱威, 洪力栋, 施海东, 等. 结合优势结构和最小目标 Q 值的深度强化学习导航算
+法.[J]. 控制理论与应用, 2024, 41(4): 716­728.
+
+
+
+
+
+
